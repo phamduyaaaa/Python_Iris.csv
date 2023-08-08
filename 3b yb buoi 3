@@ -1,0 +1,52 @@
+import math
+with open(file = "Iris.csv", mode='r') as csv_file:
+    data = csv_file.readlines()
+chieudai_daihoa = float(input("-NHẬP CHIỀU DÀI ĐÀI HOA: "))
+chieurong_daihoa = float(input("-NHẬP CHIỀU RỘNG ĐÀI HOA: "))
+danhsach_khoangcach = []
+danhsach_ten = []
+for row in data [1:]:
+    text = row.split(sep=",")
+    distance = math.sqrt((chieudai_daihoa - float(text[1])) ** 2 + (chieurong_daihoa - float(text[2])) ** 2)
+    danhsach_khoangcach.append(distance)
+    danhsach_ten.append(text[5])
+sorted_danhsach_khoangcach, sorted_danhsach_ten = zip(*sorted(zip(danhsach_khoangcach,danhsach_ten)))
+print("---KHOẢNG CÁCH 7 ĐIỂM GẦN NHẤT LÀ---:")
+#In ra 7 điểm gần nhất sử dụng vòng lặp for:
+#Và lưu "top 7" vào danh sách khoảng cách và danh sách tên
+top7_ten = []       #Khởi tạo list để chứa 7 tên gần nhất
+top7_khoangcach =[] #Khởi tạo list để chứa 7 khoảng cách gần nhất
+for x in range(0,7):
+    print ("Điểm số",x+1,":")
+    print(sorted_danhsach_khoangcach[x],sorted_danhsach_ten[x])
+    top7_ten.append(sorted_danhsach_ten[x])
+    top7_khoangcach.append(sorted_danhsach_khoangcach[x])
+#Chuyển top 7 tên vào 1 list mới có tên predict_list
+predict_list = [top7_ten.count("Iris-setosa\n"),top7_ten.count("Iris-versicolor\n"),top7_ten.count("Iris-virginica\n")]
+n_max = max(predict_list)
+print("---ĐIỂM CẦN XÉT---: (",chieudai_daihoa,",",chieurong_daihoa,")")
+print("Khảo sát tỉ lệ(Iris-setosa/Iris-versicolor/Iris-virginica): ",n_max)
+#Do chỉ xét 7 bông hoa nên có 3 trường hợp KHÔNG XÁC ĐỊNH ĐƯỢC LOẠI HOA là:
+        #Loại 1 và Loại 2 đều dự đoán có 3 bông hoa (3,3,1)
+        #Loại 1 và Loại 3 đều dự đoán có 3 bông hoa (3,1,3)
+if predict_list[0] == 3:
+    if predict_list[1] == 3 or predict_list[2] == 3:
+        print("Không xác định được loại hoa")
+        #Loại 2 và Loại 3 đều dự đoán có 3 bông hoa (1,3,3)
+elif predict_list[1] == 3 and predict_list[2] == 3:
+    print("Không xác định được loại hoa")
+else: #Các trường hợp xác định được loại hoa
+    if predict_list[0] == n_max:
+        print("---DỰ ĐOÁN---: Iris-setosa",)
+    if predict_list[1] == n_max:
+        print("---DỰ ĐOÁN---: Iris-versicolor")
+    if predict_list[2] == n_max:
+        print("---DỰ ĐOÁN---: Iris-virginica")
+
+
+
+
+
+
+
+

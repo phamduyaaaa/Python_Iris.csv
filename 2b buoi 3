@@ -1,0 +1,19 @@
+with open(file = "Iris.csv", mode='r') as csv_file:
+    data = csv_file.readlines()
+list = []
+ten = []
+TongChieuDai_CheuRong = []
+for row in data[1:]:
+    text = row.split(sep =',')
+    SumDaiRong = text[1]+text[2]
+    list.append(SumDaiRong)
+    ten.append(text[5])
+sorted_list, sorted_ten = zip(*sorted(zip(ten,list)))
+new_list = []
+new_ten = []
+for x in range(0,50):
+    new_list.append(list)
+    new_ten.append(ten)
+print("50 bong co tong chieu dai + chieu rong lon nhat la: \n",list)
+print(ten)
+

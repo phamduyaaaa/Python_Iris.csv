@@ -1,0 +1,28 @@
+import math
+with open(file = "Iris.csv", mode='r') as csv_file:
+    data = csv_file.readlines()
+chieudai_daihoa = float(input("-NHẬP CHIỀU DÀI ĐÀI HOA: "))
+chieurong_daihoa = float(input("-NHẬP CHIỀU RỘNG ĐÀI HOA: "))
+danhsach_khoangcach = []
+danhsach_ten = []
+for row in data [1:]:
+    text = row.split(sep=",")
+    distance = math.sqrt((chieudai_daihoa - float(text[1])) ** 2 + (chieurong_daihoa - float(text[2])) ** 2)
+    danhsach_khoangcach.append(distance) #Thêm khoảng cách vào danh sách khoảng cách
+    danhsach_ten.append(text[5])         #Đồng thời thêm tên vào danh sách tên
+#Sử dụng zip() + sorted() để sắp xếp cùng lúc 2 list
+#Sau đó tiếp tục dùng zip(*) để tách 2 list ra và gán các phần tử vào 2 list mới
+sorted_danhsach_khoangcach, sorted_danhsach_ten = zip(*sorted(zip(danhsach_khoangcach,danhsach_ten)))
+print(sorted_danhsach_khoangcach)
+print(sorted_danhsach_ten)
+if sorted_danhsach_ten[1] != sorted_danhsach_ten[2]:
+    if sorted_danhsach_ten[3] == sorted_danhsach_ten [1] or sorted_danhsach_ten[3] == sorted_danhsach_ten[2]:
+        print(sorted_danhsach_ten[3])
+    else:
+        if sorted_danhsach_ten[4] == sorted_danhsach_ten[1] or sorted_danhsach_ten[4] == sorted_danhsach_ten[2] or sorted_danhsach_ten[4] == sorted_danhsach_ten [3]:
+            print(sorted_danhsach_ten[4])
+else:
+    print ("-DỰ ĐOÁN: ",sorted_danhsach_ten[1])
+
+
+

@@ -1,0 +1,56 @@
+import math
+with open(file = "Iris.csv", mode='r') as csv_file:
+    data = csv_file.readlines()
+chieudai_daihoa = float(input("Nhap chieu dai dai hoa: "))
+chieurong_daihoa = float(input("Nhap chieu rong dai hoa: "))
+danhsach_khoangcach = []
+danhsach_ten = []
+for row in data [1:]:
+    text = row.split(sep=",")
+    distance = math.sqrt((chieudai_daihoa - float(text[1])) ** 2 + (chieurong_daihoa - float(text[2])) ** 2)
+    if -0.2<= distance <= 0.2:
+        danhsach_khoangcach.append(distance)
+        danhsach_ten.append(text[5])
+sorted_danhsach_khoangcach, sorted_danhsach_ten = zip(*sorted(zip(danhsach_khoangcach, danhsach_ten)))
+a = len(danhsach_khoangcach)
+n_setosa = 0
+n_versicolor = 0
+n_virginica = 0
+print("---CÁC KHOẢNG CÁCH THỎA MÃN LÀ---:")
+for x in range(0,a):
+    print("ĐIỂM SỐ",x+1,":")
+    print(sorted_danhsach_khoangcach[x],sorted_danhsach_ten[x])
+    if sorted_danhsach_ten[x] == "Iris-setosa\n":
+        n_setosa +=1
+    if sorted_danhsach_ten[x] == "Iris-versicolor\n":
+        n_versicolor +=1
+    if sorted_danhsach_ten[x] == "Iris-virginica\n":
+        n_virginica +=1
+n_max = (n_setosa,n_versicolor,n_virginica)
+nhieunhat = float(max(n_max))
+n = 0
+for x in range(0,3):
+    if float(n_max[x]) == nhieunhat:
+        name = x
+        n +=1
+# neu n ma lon hon 2 thi co nghia la:
+# co 2 nhom co so luong max bang nhau trong tong so 3 nhom
+if n >= 2:
+    name = 3
+if name == 0:
+    name = "Iris-setosa"
+elif name == 1:
+    name = "Iris-versicolor"
+elif name == 2:
+    name = "Iris-virginica"
+else:
+    name = "Khong thuoc nhom nao!"
+print("---ĐIỂM CẦN XÉT---: (",chieudai_daihoa,",",chieurong_daihoa,")")
+print("Khảo sát tỉ lệ(Iris-setosa/Iris-versicolor/Iris-virginica): ",n_max)
+print("Dự đoán: ",name)
+
+
+
+
+
+
